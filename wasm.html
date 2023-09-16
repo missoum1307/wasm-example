@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebAssembly Example</title>
+</head>
+<body>
+ 
+
+
+    <script>
+        let addModule 
+        // Load the WebAssembly module
+        fetch('add.wasm')
+            .then(response => response.arrayBuffer())
+            .then(bytes => WebAssembly.instantiate(bytes))
+            .then(results => {
+           
+                addModule = results.instance.exports;
+console.log(addModule)
+                // Call the 'add' function from the WebAssembly module
+                const result = addModule.add(5, 99);
+                console.log('Result:', result); // Should output "Result: 12"
+            })
+            .catch(console.error);
+    </script>
+
+    
+</body>
+</html>
